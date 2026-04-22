@@ -1,5 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Link, Route, Routes } from "react-router-dom";
 import JsBarcode from "jsbarcode";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfUse from "./pages/TermsOfUse";
 
 type BarcodeFormat =
   | "CODE128"
@@ -122,7 +125,7 @@ function generateRandomValue(format: BarcodeFormat) {
   }
 }
 
-function App() {
+function HomePage() {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   const [format, setFormat] = useState<BarcodeFormat>("CODE128");
@@ -270,7 +273,7 @@ function App() {
           </div>
 
           <div className="preview-panel">
-            <h2>Live preview</h2>
+            <h2>Barcode Preview</h2>
 
             <div className="preview-box">
               <svg ref={svgRef}></svg>
@@ -358,19 +361,13 @@ function App() {
           <h2>Frequently Asked Questions</h2>
 
           <h3>Is this barcode generator free?</h3>
-          <p>
-            Yes, this online barcode generator is free to use.
-          </p>
+          <p>Yes, this online barcode generator is free to use.</p>
 
           <h3>Do I need to install anything?</h3>
-          <p>
-            No, the entire tool runs directly in your browser.
-          </p>
+          <p>No, the entire tool runs directly in your browser.</p>
 
           <h3>Can I download the barcode?</h3>
-          <p>
-            Yes, you can download the generated barcode as an SVG file.
-          </p>
+          <p>Yes, you can download the generated barcode as an SVG file.</p>
 
           <h3>Which barcode format should I use?</h3>
           <p>
@@ -380,7 +377,28 @@ function App() {
           </p>
         </section>
       </section>
+
+      <footer className="site-footer">
+        <div className="footer-content">
+          <p>© 2026 Barcode Generator. All rights reserved.</p>
+
+          <nav className="footer-links" aria-label="Footer navigation">
+            <Link to="/privacy-policy">Privacy Policy</Link>
+            <Link to="/terms-of-use">Terms of Use</Link>
+          </nav>
+        </div>
+      </footer>
     </main>
+  );
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      <Route path="/terms-of-use" element={<TermsOfUse />} />
+    </Routes>
   );
 }
 
